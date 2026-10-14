@@ -29,10 +29,10 @@ import textoActuamosComo from '../assets/dogourmet/texto-actuamos-como-un-escudo
 import textoConoceSobre from '../assets/dogourmet/texto-conoce-sobre.svg'
 import textoEnergiaProtegida from '../assets/dogourmet/texto-energia-protegida.svg'
 import perroEnergiaProtegida from '../assets/dogourmet/perro-energia-protegida.svg'
-import asadoNegro from '../assets/dogourmet/asado-negro.svg'
-import carneCereales from '../assets/dogourmet/carne-y-cereales.svg'
-import parrillaMixta from '../assets/dogourmet/parrilla-mixta.svg'
-import polloAlaBrasa from '../assets/dogourmet/pollo-a-la-brasa.svg'
+import asadoNegro from '../assets/dogourmet/asado-negro.png'
+import carneCereales from '../assets/dogourmet/carne-y-cereales.png'
+import parrillaMixta from '../assets/dogourmet/parrilla-mixta.png'
+import polloAlaBrasa from '../assets/dogourmet/pollo-a-la-brasa.png'
 import textoProteinas from '../assets/dogourmet/texto-proteinas-de-alta-calidad.svg'
 import textoFundamental from '../assets/dogourmet/texto-fundamental-para-el-mantenimiento.svg'
 import textoNuestros from '../assets/dogourmet/texto-nuestros.svg'
@@ -41,6 +41,7 @@ import botonDesliza from '../assets/dogourmet/boton-desliza.svg'
 import fondoRojoArriba from '../assets/dogourmet/fondo-rojo-arriba.svg'
 import ImageCarousel from '../components/ImageCarousel'
 import ViewAssetLoader, { useAssetLoader } from '../components/ViewAssetLoader'
+import carneAlaParrilla from '../assets/dogourmet/carne-a-la-parrilla.png'
 
 const dogourmetAssets = [
   dogourmet,
@@ -82,6 +83,7 @@ const dogourmetAssets = [
   textoSabores,
   botonDesliza,
   fondoRojoArriba,
+  carneAlaParrilla
 ]
 
 function Dogourmet() {
@@ -246,6 +248,7 @@ function Dogourmet() {
               { src: asadoNegro, alt: 'Plato de comida húmeda sabor Asado Negro' },
               { src: carneCereales, alt: 'Carne y cereales' },
               { src: parrillaMixta, alt: 'Parrilla Mixta' },
+              { src: carneAlaParrilla, alt: 'Carne a la Parrilla' },
               { src: polloAlaBrasa, alt: 'Pollo a la Brasa' },
             ]}
           />

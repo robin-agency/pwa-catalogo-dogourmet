@@ -40,16 +40,16 @@ const questionSets = {
   guau: [
     { image: preguntaPerro1, options: ['Conexión', 'Diversión', 'Lealtad', 'Aventura'] },
     { image: preguntaPerro2, options: ['Toy Story', 'Son como niños', 'Avengers', 'Viaje al centro de la tierra'] },
-    { image: preguntaPerro3, options: ['Busco a alguien para no estar solo', 'Cambio de escondite cada 5 min.', 'CReviso si mi familia está bien', 'Investigo de dónde vino'] },
+    { image: preguntaPerro3, options: ['Busco a alguien para no estar solo', 'Cambio de escondite cada 5 min.', 'Reviso si mi familia está bien', 'Investigo de dónde vino'] },
     { image: preguntaPerro4, options: ['Algo para compartir', 'Comida rápida', 'Una ensalada y full proteína', 'Algo que no haya probado antes'] },
     { image: preguntaPerro5, options: ['Saludo a todo el mundo', 'Busco como hacer ruido', 'No me separo de mi grupo', 'Exploro el lugar'] },
   ],
   miau: [
     { image: preguntaGato1, options: ['¿En dónde? ¿Quiénes van?', '¡Claro! conozco el lugar perfecto', 'Ok, pero a las 12 me regreso', 'Depende...'] },
     { image: preguntaGato2, options: ['El que siempre tiene un cuento', 'El líder sin discusión', 'El bebé del grupo', 'El que no se conforma con nada'] },
-    { image: preguntaGato3, options: ['Ver TikToks sobre alguna polémica', 'Cualquiera mientras pueda elegir', 'Hornear galletas', 'Ver películas en casa'] },
-    { image: preguntaGato4, options: ['Parchita', 'Chocolate', 'Fresa', 'Mantecado'] },
-    { image: preguntaGato5, options: ['Donde me entero de todo', 'Donde me siento cómodo', 'Parque con áreas verdes', 'Mi cama'] },
+    { image: preguntaGato3, options: ['Tomar café con amigos', 'Cualquiera mientras pueda elegir', 'Quedarse cocinando en casa', 'Ver películas en casa'] },
+    { image: preguntaGato4, options: ['Hip hop', 'Rock clásico', 'Baladas románticas', 'Pop en inglés'] },
+    { image: preguntaGato5, options: ['Uno en el que pueda enterarme de todo', 'Cualquiera que conozca muy bien', 'Parque con áreas verdes', 'Mi cama'] },
   ],
 }
 
