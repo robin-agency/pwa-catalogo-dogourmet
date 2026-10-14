@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { saveTestResult } from '../lib/testResultsDb'
+//import { saveTestResult } from '../lib/testResultsDb'
 import fondo from '../assets/testseleccion/fondo.png'
 import gatoYPerro from '../assets/testseleccion/gato-y-perro.png'
 import queHuellitasMarcan from '../assets/testseleccion/que-huellitas-marcan.png'
@@ -164,6 +164,7 @@ function TestSeleccion() {
       }
 
       setStep('selection')
+      setTeam('')
       return
     }
 
@@ -180,6 +181,12 @@ function TestSeleccion() {
     setQuestionIndex(0)
     setStep('selection')
     setTeam('')
+  }
+
+  const selectTeam = (selectedTeam) => {
+    setTeam(selectedTeam)
+    setQuestionImageLoaded(false)
+    setStep('questions')
   }
 
   const selectAnswer = async (letter) => {
@@ -227,13 +234,14 @@ function TestSeleccion() {
     setStep('result')
     setQuestionIndex(resultIndex)
 
-    if (saveToLocal) {
-      try {
-        await saveTestResult(record)
-      } catch (error) {
-        console.error('No se pudo guardar el resultado localmente:', error)
-      }
-    }
+    // GUARDADO EN BASE DE DATOS COMENTADO - No se guarda nada
+    // if (saveToLocal) {
+    //   try {
+    //     await saveTestResult(record)
+    //   } catch (error) {
+    //     console.error('No se pudo guardar el resultado localmente:', error)
+    //   }
+    // }
   }
 
   return (
@@ -318,6 +326,7 @@ function TestSeleccion() {
             )}
           </div>
         ) : team ? (
+          {/* FORMULARIO COMENTADO - Se salta directamente al quiz
           <form
             className="relative z-30 flex h-full w-full flex-col items-center justify-center pb-[18%] sm:pb-[16%] lg:pb-[12%]"
             onSubmit={startQuestions}
@@ -353,6 +362,7 @@ function TestSeleccion() {
               <img src={comenzarTest} alt="Comenzar test" className="block h-auto w-full" />
             </button>
           </form>
+          */}
         ) : (
           <>
         <img
@@ -364,7 +374,7 @@ function TestSeleccion() {
         <div className="relative z-30 mt-20 flex w-full flex-col items-center gap-2 sm:gap-3 lg:gap-4">
           <button
             type="button"
-            onClick={() => setTeam('guau')}
+            onClick={() => selectTeam('guau')}
             aria-pressed={team === 'guau'}
             className={`w-[50%] transition-transform hover:scale-[1.03] active:scale-[0.97] ${team === 'guau' ? 'scale-[1.04] drop-shadow-[0_0_16px_rgba(213,43,31,0.75)]' : ''}`}
           >
@@ -372,7 +382,7 @@ function TestSeleccion() {
           </button>
           <button
             type="button"
-            onClick={() => setTeam('miau')}
+            onClick={() => selectTeam('miau')}
             aria-pressed={team === 'miau'}
             className={`w-[50%] transition-transform hover:scale-[1.03] active:scale-[0.97] ${team === 'miau' ? 'scale-[1.04] drop-shadow-[0_0_16px_rgba(0,153,208,0.75)]' : ''}`}
           >
