@@ -148,7 +148,7 @@ function Dogourmet() {
             <img
               src={perroIzquierda}
               alt="Perro Dogourmet"
-              className="absolute left-0 -top-[10%] w-[85%] z-10 pointer-events-none object-contain drop-shadow-lg"
+              className="absolute left-0 -top-[10%] w-[85%] z-0 pointer-events-none object-contain drop-shadow-lg"
             />
             <Link to="/dogourmet#atributos" onClick={handleGoToAtributos}>
               <div className="absolute right-12 sm:right-12 top-[18%] w-[35%] flex flex-col items-center gap-1 sm:gap-2 z-20">
@@ -168,13 +168,13 @@ function Dogourmet() {
           </div>
         </div>
       </section>
-      <section className="relative w-full pt-10 sm:pt-16 md:pt-24 pb-16 sm:pb-24 md:pb-32 px-4 flex flex-col items-center text-center -mt-8 sm:-mt-14 md:-mt-20 z-0 overflow-visible bg-[#FFF8E7]">
+      <section className="relative w-full pt-8 sm:pt-12 lg:pt-20 pb-16 sm:pb-24 lg:pb-36 px-4 flex flex-col items-center text-center -mt-4 sm:-mt-8 lg:-mt-12 z-10 overflow-visible">
         {fondoCrema && (
           <img
             src={fondoCrema}
             alt=""
             aria-hidden="true"
-            className="dogourmet-cream-background absolute -top-10 left-0 w-full h-full object-cover -z-20 pointer-events-none"
+            className="dogourmet-cream-background absolute -top-46 left-0 w-full h-full object-cover -z-20 pointer-events-none"
           />
         )}
         <div className="w-full flex flex-col items-center relative z-10">
@@ -281,7 +281,7 @@ function Dogourmet() {
           />
         </div>
         <div className="w-full flex flex-col items-center relative">
-          <div className="w-full flex flex-col items-center mb-6 sm:mb-10">
+          <div className="w-full flex flex-col items-center mb-6 sm:mb-6">
             <img
               src={botonNuestrasTasasNutricionales}
               alt="Nuestras tablas nutricionales"
