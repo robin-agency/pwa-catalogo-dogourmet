@@ -1,13 +1,7 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  saveTestResult,
-  exportTestResultsCsv,
-  getSavedResultsCount,
-  getAllTestResults,
-  clearAllTestResults,
-} from '../lib/testResultsDb'
+//import { saveTestResult } from '../lib/testResultsDb'
 import fondo from '../assets/testseleccion/fondo.png'
 import gatoYPerro from '../assets/testseleccion/gato-y-perro.png'
 import queHuellitasMarcan from '../assets/testseleccion/que-huellitas-marcan.png'
@@ -46,16 +40,16 @@ const questionSets = {
   guau: [
     { image: preguntaPerro1, options: ['Conexión', 'Diversión', 'Lealtad', 'Aventura'] },
     { image: preguntaPerro2, options: ['Toy Story', 'Son como niños', 'Avengers', 'Viaje al centro de la tierra'] },
-    { image: preguntaPerro3, options: ['Busco a alguien para no estar solo', 'Cambio de escondite cada 5 min.', 'CReviso si mi familia está bien', 'Investigo de dónde vino'] },
+    { image: preguntaPerro3, options: ['Busco a alguien para no estar solo', 'Cambio de escondite cada 5 min.', 'Reviso si mi familia está bien', 'Investigo de dónde vino'] },
     { image: preguntaPerro4, options: ['Algo para compartir', 'Comida rápida', 'Una ensalada y full proteína', 'Algo que no haya probado antes'] },
     { image: preguntaPerro5, options: ['Saludo a todo el mundo', 'Busco como hacer ruido', 'No me separo de mi grupo', 'Exploro el lugar'] },
   ],
   miau: [
     { image: preguntaGato1, options: ['¿En dónde? ¿Quiénes van?', '¡Claro! conozco el lugar perfecto', 'Ok, pero a las 12 me regreso', 'Depende...'] },
     { image: preguntaGato2, options: ['El que siempre tiene un cuento', 'El líder sin discusión', 'El bebé del grupo', 'El que no se conforma con nada'] },
-    { image: preguntaGato3, options: ['Ver TikToks sobre alguna polémica', 'Cualquiera mientras pueda elegir', 'Hornear galletas', 'Ver películas en casa'] },
-    { image: preguntaGato4, options: ['Parchita', 'Chocolate', 'Fresa', 'Mantecado'] },
-    { image: preguntaGato5, options: ['Donde me entero de todo', 'Donde me siento cómodo', 'Parque con áreas verdes', 'Mi cama'] },
+    { image: preguntaGato3, options: ['Tomar café con amigos', 'Cualquiera mientras pueda elegir', 'Quedarse cocinando en casa', 'Ver películas en casa'] },
+    { image: preguntaGato4, options: ['Hip hop', 'Rock clásico', 'Baladas románticas', 'Pop en inglés'] },
+    { image: preguntaGato5, options: ['Uno en el que pueda enterarme de todo', 'Cualquiera que conozca muy bien', 'Parque con áreas verdes', 'Mi cama'] },
   ],
 }
 
@@ -93,10 +87,6 @@ function TestSeleccion() {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [questionImageLoaded, setQuestionImageLoaded] = useState(false)
   const [answers, setAnswers] = useState([])
-  const [savedResultsCount, setSavedResultsCount] = useState(0)
-  const [history, setHistory] = useState([])
-  const [showHistory, setShowHistory] = useState(false)
-  const [latestResultRecord, setLatestResultRecord] = useState(null)
   const [saveToLocal, setSaveToLocal] = useState(() => {
     if (typeof window === 'undefined') {
       return true
@@ -115,13 +105,6 @@ function TestSeleccion() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    const loadCount = async () => {
-      const total = await getSavedResultsCount()
-      setSavedResultsCount(total)
-      const rows = await getAllTestResults()
-      setHistory(rows)
-    }
-    loadCount()
   }, [])
 
   useEffect(() => {
@@ -181,6 +164,7 @@ function TestSeleccion() {
       }
 
       setStep('selection')
+      setTeam('')
       return
     }
 
@@ -197,6 +181,12 @@ function TestSeleccion() {
     setQuestionIndex(0)
     setStep('selection')
     setTeam('')
+  }
+
+  const selectTeam = (selectedTeam) => {
+    setTeam(selectedTeam)
+    setQuestionImageLoaded(false)
+    setStep('questions')
   }
 
   const selectAnswer = async (letter) => {
@@ -240,57 +230,18 @@ function TestSeleccion() {
       },
     }
 
-    setLatestResultRecord(record)
     setAnswers(nextAnswers)
     setStep('result')
     setQuestionIndex(resultIndex)
 
-    if (saveToLocal) {
-      try {
-        await saveTestResult(record)
-        const count = await getSavedResultsCount()
-        setSavedResultsCount(count)
-      } catch (error) {
-        console.error('No se pudo guardar el resultado localmente:', error)
-        setSavedResultsCount(0)
-      }
-    } else {
-      setSavedResultsCount(0)
-    }
-  }
-
-  const handleExportCsv = async () => {
-    const rows = await getAllTestResults()
-    const dataToExport = rows.length ? rows : latestResultRecord ? [latestResultRecord] : []
-
-    if (!dataToExport.length) {
-      return
-    }
-
-    const exported = await exportTestResultsCsv(dataToExport)
-    if (exported) {
-      const count = await getSavedResultsCount()
-      setSavedResultsCount(count)
-    }
-  }
-
-  const refreshHistory = async () => {
-    const rows = await getAllTestResults()
-    setHistory(rows)
-    const total = await getSavedResultsCount()
-    setSavedResultsCount(total)
-  }
-
-  const handleClearData = async () => {
-    await clearAllTestResults()
-    setHistory([])
-    setSavedResultsCount(0)
-    setSaveToLocal(false)
-  }
-
-  const handleViewHistory = async () => {
-    await refreshHistory()
-    setShowHistory((current) => !current)
+    // GUARDADO EN BASE DE DATOS COMENTADO - No se guarda nada
+    // if (saveToLocal) {
+    //   try {
+    //     await saveTestResult(record)
+    //   } catch (error) {
+    //     console.error('No se pudo guardar el resultado localmente:', error)
+    //   }
+    // }
   }
 
   return (
@@ -337,78 +288,6 @@ function TestSeleccion() {
               />
             </button>
 
-            <div className="w-[75%] absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3 rounded-xl bg-[#0a2235]/80 p-4 text-white shadow-lg backdrop-blur-sm">
-              <div className="text-center text-sm font-semibold">
-                Registros guardados: {savedResultsCount}
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={handleExportCsv}
-                  className="rounded-full bg-[#f7d856] px-4 py-2 text-xs font-bold text-[#1a1a1a]"
-                >
-                  Descargar CSV
-                </button>
-                <button
-                  type="button"
-                  onClick={handleViewHistory}
-                  className="rounded-full border border-white/60 bg-transparent px-4 py-2 text-xs font-bold text-white"
-                >
-                  {showHistory ? 'Ocultar historial' : 'Ver historial'}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleClearData}
-                  className="rounded-full border border-white/60 bg-transparent px-4 py-2 text-xs font-bold text-white"
-                >
-                  Vaciar datos
-                </button>
-              </div>
-
-              <label className="flex items-center gap-2 text-xs">
-                <input
-                  type="checkbox"
-                  checked={saveToLocal}
-                  onChange={(event) => setSaveToLocal(event.target.checked)}
-                />
-                Mantener registro local
-              </label>
-            </div>
-
-            {showHistory && (
-              <div className="absolute bottom-44 left-1/2 z-40 w-[88%] max-w-[720px] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/20 bg-[#0a2235]/90 p-3 text-left text-white shadow-2xl backdrop-blur-md">
-                <div className="mb-2 flex items-center justify-between">
-                  <h3 className="text-sm font-bold uppercase">Historial local</h3>
-                  <button
-                    type="button"
-                    onClick={() => setShowHistory(false)}
-                    className="text-xs text-white/80"
-                  >
-                    Cerrar
-                  </button>
-                </div>
-
-                {history.length === 0 ? (
-                  <p className="text-xs text-white/70">No hay registros guardados.</p>
-                ) : (
-                  <div className="max-h-[220px] overflow-auto pr-1">
-                    {history.map((record) => (
-                      <div key={record.id} className="mb-2 rounded-lg border border-white/10 bg-white/5 p-2 text-[11px]">
-                        <div className="flex justify-between gap-2">
-                          <strong>{record.nombre || 'Sin nombre'}</strong>
-                          <span>{new Date(record.created_at).toLocaleString()}</span>
-                        </div>
-                        <div>{record.correo}</div>
-                        <div>{record.hospital} • {record.ciudad}</div>
-                        <div>Equipo: {record.team} • Resultado: {record.result_letter}</div>
-                        <div>Opciones: {record.answer_letters || record.answers}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
           </div>
         ) : step === 'questions' ? (
           <div className="relative z-30 flex h-full w-full flex-col items-center justify-between pb-8">
@@ -447,6 +326,7 @@ function TestSeleccion() {
             )}
           </div>
         ) : team ? (
+          {/* FORMULARIO COMENTADO - Se salta directamente al quiz
           <form
             className="relative z-30 flex h-full w-full flex-col items-center justify-center pb-[18%] sm:pb-[16%] lg:pb-[12%]"
             onSubmit={startQuestions}
@@ -482,6 +362,7 @@ function TestSeleccion() {
               <img src={comenzarTest} alt="Comenzar test" className="block h-auto w-full" />
             </button>
           </form>
+          */}
         ) : (
           <>
         <img
@@ -493,7 +374,7 @@ function TestSeleccion() {
         <div className="relative z-30 mt-20 flex w-full flex-col items-center gap-2 sm:gap-3 lg:gap-4">
           <button
             type="button"
-            onClick={() => setTeam('guau')}
+            onClick={() => selectTeam('guau')}
             aria-pressed={team === 'guau'}
             className={`w-[50%] transition-transform hover:scale-[1.03] active:scale-[0.97] ${team === 'guau' ? 'scale-[1.04] drop-shadow-[0_0_16px_rgba(213,43,31,0.75)]' : ''}`}
           >
@@ -501,7 +382,7 @@ function TestSeleccion() {
           </button>
           <button
             type="button"
-            onClick={() => setTeam('miau')}
+            onClick={() => selectTeam('miau')}
             aria-pressed={team === 'miau'}
             className={`w-[50%] transition-transform hover:scale-[1.03] active:scale-[0.97] ${team === 'miau' ? 'scale-[1.04] drop-shadow-[0_0_16px_rgba(0,153,208,0.75)]' : ''}`}
           >

@@ -4,9 +4,10 @@ import NotFound from './views/NotFound'
 import Champs from './views/Champs'
 import Dogourmet from './views/Dogourmet'
 import Donkat from './views/Donkat'
-import Ohmygat from './views/Ohmygat'
+import Ohmygat from './views/Ohmygat_v2'
 import Supercan from './views/Supercan'
 import TestSeleccion from './views/TestSeleccion'
+import AdminRegistros from './views/AdminRegistros'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/ohmygat" element={<Ohmygat />} />
         <Route path="/Supercan" element={<Supercan />} />
         <Route path="/testseleccion" element={<TestSeleccion />} />
+        <Route path="/admin-registros" element={<AdminRegistros />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

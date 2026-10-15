@@ -29,10 +29,10 @@ import textoActuamosComo from '../assets/dogourmet/texto-actuamos-como-un-escudo
 import textoConoceSobre from '../assets/dogourmet/texto-conoce-sobre.svg'
 import textoEnergiaProtegida from '../assets/dogourmet/texto-energia-protegida.svg'
 import perroEnergiaProtegida from '../assets/dogourmet/perro-energia-protegida.svg'
-import asadoNegro from '../assets/dogourmet/asado-negro.svg'
-import carneCereales from '../assets/dogourmet/carne-y-cereales.svg'
-import parrillaMixta from '../assets/dogourmet/parrilla-mixta.svg'
-import polloAlaBrasa from '../assets/dogourmet/pollo-a-la-brasa.svg'
+import asadoNegro from '../assets/dogourmet/asado-negro.png'
+import carneCereales from '../assets/dogourmet/carne-y-cereales.png'
+import parrillaMixta from '../assets/dogourmet/parrilla-mixta.png'
+import polloAlaBrasa from '../assets/dogourmet/pollo-a-la-brasa.png'
 import textoProteinas from '../assets/dogourmet/texto-proteinas-de-alta-calidad.svg'
 import textoFundamental from '../assets/dogourmet/texto-fundamental-para-el-mantenimiento.svg'
 import textoNuestros from '../assets/dogourmet/texto-nuestros.svg'
@@ -41,6 +41,7 @@ import botonDesliza from '../assets/dogourmet/boton-desliza.svg'
 import fondoRojoArriba from '../assets/dogourmet/fondo-rojo-arriba.svg'
 import ImageCarousel from '../components/ImageCarousel'
 import ViewAssetLoader, { useAssetLoader } from '../components/ViewAssetLoader'
+import carneAlaParrilla from '../assets/dogourmet/carne-a-la-parrilla.png'
 
 const dogourmetAssets = [
   dogourmet,
@@ -82,6 +83,7 @@ const dogourmetAssets = [
   textoSabores,
   botonDesliza,
   fondoRojoArriba,
+  carneAlaParrilla
 ]
 
 function Dogourmet() {
@@ -148,7 +150,7 @@ function Dogourmet() {
             <img
               src={perroIzquierda}
               alt="Perro Dogourmet"
-              className="absolute left-0 -top-[10%] w-[85%] z-10 pointer-events-none object-contain drop-shadow-lg"
+              className="absolute left-0 -top-[10%] w-[85%] z-0 pointer-events-none object-contain drop-shadow-lg"
             />
             <Link to="/dogourmet#atributos" onClick={handleGoToAtributos}>
               <div className="absolute right-12 sm:right-12 top-[18%] w-[35%] flex flex-col items-center gap-1 sm:gap-2 z-20">
@@ -168,17 +170,17 @@ function Dogourmet() {
           </div>
         </div>
       </section>
-      <section className="relative w-full pt-10 sm:pt-16 md:pt-24 pb-16 sm:pb-24 md:pb-32 px-4 flex flex-col items-center text-center -mt-8 sm:-mt-14 md:-mt-20 z-0 overflow-visible bg-[#FFF8E7]">
+      <section className="relative w-full pt-8 sm:pt-12 lg:pt-20 pb-16 sm:pb-24 lg:pb-36 px-4 flex flex-col items-center text-center -mt-4 sm:-mt-8 lg:-mt-12 z-10 overflow-visible">
         {fondoCrema && (
           <img
             src={fondoCrema}
             alt=""
             aria-hidden="true"
-            className="absolute -top-10 left-0 w-full h-full object-cover -z-20 pointer-events-none"
+            className="dogourmet-cream-background absolute -top-46 left-0 w-full h-full object-cover -z-20 pointer-events-none"
           />
         )}
         <div className="w-full flex flex-col items-center relative z-10">
-          <div className="flex flex-col items-center gap-1 sm:gap-2 mb-8 sm:mb-12 md:mb-16 w-[80%] mt-30">
+          <div className="dogourmet-attributes-heading flex flex-col items-center gap-1 sm:gap-2 mb-8 sm:mb-12 md:mb-16 w-[80%] mt-30">
             <img
               src={textoAtributos}
               alt="ATRIBUTOS"
@@ -246,6 +248,7 @@ function Dogourmet() {
               { src: asadoNegro, alt: 'Plato de comida húmeda sabor Asado Negro' },
               { src: carneCereales, alt: 'Carne y cereales' },
               { src: parrillaMixta, alt: 'Parrilla Mixta' },
+              { src: carneAlaParrilla, alt: 'Carne a la Parrilla' },
               { src: polloAlaBrasa, alt: 'Pollo a la Brasa' },
             ]}
           />
@@ -263,7 +266,7 @@ function Dogourmet() {
           <img
             src={perroEnergiaProtegida}
             alt="Perro Energia Protegida"
-            className="absolute -top-[12%] left-0 w-[60%] h-auto object-contain -z-30 pointer-events-none"
+            className="dogourmet-energy-dog absolute -top-[12%] left-0 w-[60%] h-auto object-contain -z-30 pointer-events-none"
           />
         </>
         )}
@@ -281,7 +284,7 @@ function Dogourmet() {
           />
         </div>
         <div className="w-full flex flex-col items-center relative">
-          <div className="w-full flex flex-col items-center mb-6 sm:mb-10">
+          <div className="w-full flex flex-col items-center mb-6 sm:mb-6">
             <img
               src={botonNuestrasTasasNutricionales}
               alt="Nuestras tablas nutricionales"
@@ -377,13 +380,13 @@ function Dogourmet() {
                 <div className="w-[75%] flex justify-center relative z-30">
                   <Link
                     to="/donkat"
-                    className="transition-transform hover:scale-105 active:scale-95 relative z-30"
+                    className="relative z-30 block w-full transition-transform hover:scale-105 active:scale-95"
                     aria-label="Ir a catálogo de Nutrición Felina"
                   >
                     <img
                       src={botonVisitarNutricionFelina}
                       alt="VISITAR NUTRICIÓN FELINA"
-                      className="mt-20 h-auto drop-shadow-md"
+                      className="mt-20 w-full h-auto drop-shadow-md"
                     />
                   </Link>
                 </div>
